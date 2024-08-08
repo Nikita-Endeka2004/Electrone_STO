@@ -3,7 +3,7 @@ import { WorkService } from './work.service';
 import { CreateWorkDto } from './dto/create-work.dto';
 import { UpdateWorkDto } from './dto/update-work.dto';
 
-@Controller('work')
+@Controller('works')
 export class WorkController {
   constructor(private readonly workService: WorkService) {}
 

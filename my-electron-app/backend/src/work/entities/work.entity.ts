@@ -1,21 +1,21 @@
-import { User } from "src/user/entities/user.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { UserData } from 'src/user/entities/user.entity';
 
-@Entity()
+@Entity('works')
 export class Work {
   @PrimaryGeneratedColumn()
-  id: number
+  id: number;
 
-  @Column()
-  work: string
+  @Column('text')
+  work: string;
 
-  @Column()
-  amount: number
+  @Column('numeric')
+  amount: number;
 
-  @Column()
-  count: number
+  @Column('numeric')
+  count: number;
 
-  @ManyToOne(() => User, (user) => user.works)
-  @JoinColumn({name: 'user_id'})
-  user: User
+  @ManyToOne(() => UserData, userData => userData.works, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'user_data_id' }) 
+  userData: UserData;
 }

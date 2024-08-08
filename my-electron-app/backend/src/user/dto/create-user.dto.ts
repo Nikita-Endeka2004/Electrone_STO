@@ -10,4 +10,5 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   fio: string
+
 }

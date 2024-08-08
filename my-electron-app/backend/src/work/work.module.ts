@@ -3,12 +3,12 @@ import { WorkService } from './work.service';
 import { WorkController } from './work.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Work } from './entities/work.entity';
-import { User } from 'src/user/entities/user.entity';
+import { UserData } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
 import { UserModule } from 'src/user/user.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Work, User]), UserModule],
+  imports: [TypeOrmModule.forFeature([Work, UserData]), UserModule],
   controllers: [WorkController],
   providers: [WorkService, UserService],
 })

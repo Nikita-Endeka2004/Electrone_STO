@@ -1,26 +1,23 @@
-import { Work } from "src/work/entities/work.entity";
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, CreateDateColumn } from 'typeorm';
+import { Work } from 'src/work/entities/work.entity';
 
-@Entity()
-export class User {
+@Entity('user_data')
+export class UserData {
   @PrimaryGeneratedColumn()
-  id: number
-  
-  @Column()
-  vin: string
+  id: number;
 
-  @Column()
-  car_number: string
+  @Column('text')
+  vin: string;
 
-  @Column()
-  fio: string
+  @Column('text')
+  car_number: string;
 
-  @OneToMany(() => Work, (work) => work.user, {onDelete: 'CASCADE'})
-  works: Work[]
+  @Column('text')
+  fio: string;
 
-  @CreateDateColumn()
-  createdAt: Date
+  @CreateDateColumn({ type: 'timestamp' })  // Используем @CreateDateColumn для автоматического заполнения даты создания
+  date: Date;
 
-  @UpdateDateColumn()
-  updatedAt: Date
+  @OneToMany(() => Work, work => work.userData)
+  works: Work[];
 }

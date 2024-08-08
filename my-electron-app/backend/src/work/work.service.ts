@@ -18,7 +18,7 @@ export class WorkService {
       work: createWorkDto.work,
       amount: createWorkDto.amount,
       count: createWorkDto.count,
-      user: {
+      userData: {
         id: user.id
       }
     }
@@ -30,7 +30,7 @@ export class WorkService {
     const user = latestUser[0]
     return await this.workRepository.find({
       where: {
-        user: {id: user.id}
+        userData: {id: user.id}
       }
     })
   }

@@ -1,20 +1,49 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
+const { exec } = require('child_process');
 
 function createWindow() {
-  const win = new BrowserWindow({
+  const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration: true
-    }
+      nodeIntegration: true,
+      contextIsolation: false, 
+    },
   });
 
-  win.loadURL('http://localhost:3000');  // URL React приложения
+  const startURL = path.join(__dirname, 'frontend', 'dist', 'index.html');
+  console.log('Loading URL:', startURL);
+  mainWindow.loadFile(startURL);
+
+  mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
+    console.error(`Failed to load: ${errorDescription} (code: ${errorCode})`);
+  });
+
+  // Открыть DevTools для отладки
+  mainWindow.webContents.openDevTools();
 }
 
-app.whenReady().then(createWindow);
+function startBackend() {
+  const backendProcess = exec('node backend/dist/main.js');
+
+  backendProcess.stdout.on('data', (data) => {
+    console.log(`Backend: ${data}`);
+  });
+
+  backendProcess.stderr.on('data', (data) => {
+    console.error(`Backend Error: ${data}`);
+  });
+
+  backendProcess.on('close', (code) => {
+    console.log(`Backend process exited with code ${code}`);
+  });
+}
+
+app.on('ready', () => {
+  startBackend();
+  createWindow();
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

@@ -5,9 +5,10 @@ import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { WorkModule } from './work/work.module';
 import { UserModule } from './user/user.module';
+import { PdfreportModule } from './pdfreport/pdfreport.module';
 
 @Module({
-  imports: [WorkModule, UserModule, ConfigModule.forRoot({isGlobal:true}), TypeOrmModule.forRootAsync({
+  imports: [WorkModule, UserModule, PdfreportModule, ConfigModule.forRoot({isGlobal:true}), TypeOrmModule.forRootAsync({
     imports: [ConfigModule],
     useFactory: (configService: ConfigService) => ({
       type: 'postgres',

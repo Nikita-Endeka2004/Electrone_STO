@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { Form, useLoaderData } from 'react-router-dom'
+import { Form, useLoaderData, useNavigate } from 'react-router-dom'
 import { IWork } from '../types/types'
 import { instance } from '../api/axios.api'
 import WorkModal from '../components/WorkModal'
@@ -16,14 +16,7 @@ export const worksAction = async ({request}: any) => {
         count: formData.get('count')
       }
       await instance.post('/works', work)
-      toast.success('Було додано до списку', {
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        });
+      toast.success('Було додано до списку');
       return null
     }
     case "PATCH": {
@@ -60,6 +53,19 @@ const Works: FC = () => {
     setAmount('');
     setCount('');
   };
+
+  const navigate = useNavigate();
+
+  const handleCreatePdf = async () => {
+    try {
+      await instance.post('/pdfreport'); 
+      toast.success('PDF успешно создан');
+      navigate('/');
+    } catch (error) {
+      toast.error('Ошибка при создании PDF');
+    }
+  };
+
   return (
     <>
       <div className="flex h-screen p-8">
@@ -120,6 +126,7 @@ const Works: FC = () => {
               Добавить
             </button>
           </Form>
+          <button className="bg-gray-700 text-white p-1 rounded mt-60 w-full" onClick={handleCreatePdf}>Создать пдф</button>
         </div>
 
         {/* Правая часть: таблица */}

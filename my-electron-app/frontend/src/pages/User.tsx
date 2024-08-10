@@ -3,24 +3,21 @@ import { instance } from '../api/axios.api'
 import { Form, redirect } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
+const toUpperCase = (value: string | null): string => {
+  return value ? value.toUpperCase() : '';
+};
+
 export const userAction = async ({request}: any) => {
   switch(request.method){
     case "POST": {
       const formData = await request.formData()
       const data = {
-        vin: formData.get('vin'),
-        car_number: formData.get('car_number'),
+        vin: toUpperCase(formData.get('vin')),
+        car_number: toUpperCase(formData.get('car_number')),
         fio: formData.get("fio")        
       }
       await instance.post('/user_data', data)
-      toast.success('Клієнт був доданий', {
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        });
+      toast.success('Клієнт був доданий');
       return redirect('/works')
     }
   }

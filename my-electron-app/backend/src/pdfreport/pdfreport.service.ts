@@ -18,7 +18,7 @@ export class PdfreportService {
   private readonly workService: WorkService,
   private readonly userService: UserService,
  ){}
- private readonly pdfDirectory = path.resolve(__dirname, 'pdfs')
+ private readonly pdfDirectory = path.resolve('D:/Table/MyProjects/Electrone_STO/Electrone_STO/my-electron-app/data/pdfs')
 
   async create(): Promise<void> {
     // Получаем данные из сервисов
@@ -45,7 +45,7 @@ export class PdfreportService {
     };
 
     // Читаем HTML-шаблон
-    const templatePath = path.resolve(__dirname, 'template.html');
+    const templatePath = path.resolve('D:/Table/MyProjects/Electrone_STO/Electrone_STO/my-electron-app/data/template.html');
     const htmlTemplate = fs.readFileSync(templatePath, 'utf8');
 
     // Компилируем шаблон с данными
@@ -58,12 +58,11 @@ export class PdfreportService {
     await page.setContent(html, { waitUntil: 'networkidle0' });
 
     // Определяем путь сохранения PDF
-    const pdfDirectory = path.resolve(__dirname, 'pdfs');
-    if (!fs.existsSync(pdfDirectory)) {
-      fs.mkdirSync(pdfDirectory);
+    if (!fs.existsSync(this.pdfDirectory)) {
+      fs.mkdirSync(this.pdfDirectory);
     }
 
-    const pdfPath = path.resolve(pdfDirectory, `${user.vin}_${user.car_number}_${user.fio}.pdf`);
+    const pdfPath = path.resolve(this.pdfDirectory, `${user.vin}_${user.car_number}_${user.fio}.pdf`);
     await page.pdf({ path: pdfPath, format: 'A4', printBackground: true });
 
     await browser.close();

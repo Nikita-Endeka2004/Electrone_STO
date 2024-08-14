@@ -48,6 +48,8 @@ const Works: FC = () => {
   const [selectedWork, setSelectedWork] = useState<IWork | null>(null)
   const [visibleModal, setVisibleModal] = useState<boolean>(false)
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   const handleSubmit = () => {
     setWork('');
     setAmount('');
@@ -57,12 +59,18 @@ const Works: FC = () => {
   const navigate = useNavigate();
 
   const handleCreatePdf = async () => {
+    setLoading(true); 
     try {
-      await instance.post('/pdfreport'); 
+      const user = await instance.get('/user_data/latest');
+      const latestUser = user.data[0];
+      await instance.post('/pdfreport');
+      await instance.post('/pdfreport/open', { fileName: `${latestUser.vin}_${latestUser.car_number}_${latestUser.fio}.pdf` });
       toast.success('PDF успешно создан');
       navigate('/');
     } catch (error) {
       toast.error('Ошибка при создании PDF');
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -126,7 +134,13 @@ const Works: FC = () => {
               Добавить
             </button>
           </Form>
-          <button className="bg-gray-700 text-white p-1 rounded mt-60 w-full" onClick={handleCreatePdf}>Создать пдф</button>
+          <button
+            className="bg-gray-700 text-white p-1 rounded mt-60 w-full"
+            onClick={handleCreatePdf}
+            disabled={loading} // Отключаем кнопку при загрузке
+          >
+            {loading ? 'Создание PDF...' : 'Создать пдф'}
+          </button>
         </div>
 
         {/* Правая часть: таблица */}
@@ -145,14 +159,14 @@ const Works: FC = () => {
             <tbody>
               {works.map((item, idx) => (
                 <tr key={idx}>
-                  <td className="border px-2 py-2">{idx}</td>
+                  <td className="border px-2 py-2">{idx + 1}</td>
                   <td className="border px-4 py-2">{item.work}</td>
                   <td className="border px-4 py-2">{item.amount}</td>
                   <td className="border px-4 py-2">{item.count}</td>
                   <td className="border px-4 py-2">
                     <button
                       className="bg-yellow-500 text-white p-1 rounded"
-                      onClick={() => {setWorkId(item.id), setVisibleModal(true), setSelectedWork(item)}}
+                      onClick={() => { setWorkId(item.id), setVisibleModal(true), setSelectedWork(item) }}
                     >
                       Изменить
                     </button>
@@ -163,12 +177,19 @@ const Works: FC = () => {
           </table>
         </div>
       </div>
-       {/* Edit Work Modal */}
-       {visibleModal && (
-        <WorkModal setVisiableModal={setVisibleModal} id={workId} selectedWork={selectedWork}/>
+      {/* Edit Work Modal */}
+      {visibleModal && (
+        <WorkModal setVisiableModal={setVisibleModal} id={workId} selectedWork={selectedWork} />
+      )}
+
+      {/* Лоудер */}
+      {loading && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="w-16 h-16 border-t-4 border-blue-500 border-solid rounded-full animate-spin"></div>
+        </div>
       )}
     </>
-  )
-}
+  );
+};
 
 export default Works

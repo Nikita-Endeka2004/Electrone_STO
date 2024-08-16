@@ -15,7 +15,7 @@ export class UserData {
   @Column('text')
   fio: string;
 
-  @CreateDateColumn({ type: 'timestamp' })  // Используем @CreateDateColumn для автоматического заполнения даты создания
+  @CreateDateColumn({ type: 'timestamp' })  
   date: Date;
 
   @OneToMany(() => Work, work => work.userData)

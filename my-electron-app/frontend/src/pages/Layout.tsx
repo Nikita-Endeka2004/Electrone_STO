@@ -8,7 +8,7 @@ const Layout: FC = () => {
         <nav className="container mx-auto">
           <ul className="flex space-x-4">
             <li><Link to="/" className="text-white">Главная</Link></li>
-            <li><Link to="/about" className="text-white">О програме</Link></li>
+            <li><Link to="/statistic" className="text-white">Статистика</Link></li>
           </ul>
         </nav>
       </header>
@@ -17,9 +17,6 @@ const Layout: FC = () => {
         <Outlet />
       </main>
 
-      {/* <footer className="bg-gray-800 text-white p-4 text-center">
-        &copy; 2024 Мой сайт. Все права защищены.
-      </footer> */}
     </div>
   )
 }

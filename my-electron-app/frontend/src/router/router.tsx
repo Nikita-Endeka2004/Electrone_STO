@@ -3,7 +3,7 @@ import Layout from "../pages/Layout";
 import Home from "../pages/Home";
 import User, { userAction } from "../pages/User";
 import Works, { worksAction, worksLoader } from "../pages/Works";
-import About from "../pages/About";
+import Statistic, { statisticLoader } from "../pages/Statistic";
 import Search from "../pages/Search";
 
 
@@ -28,8 +28,9 @@ export const router = createBrowserRouter([
         loader: worksLoader
       },
       {
-        path: "about",
-        element: <About/>
+        path: "statistic",
+        element: <Statistic/>,
+        loader: statisticLoader,
       },
       {
         path: "search",

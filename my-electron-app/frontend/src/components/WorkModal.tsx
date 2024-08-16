@@ -9,12 +9,11 @@ interface IWorkModal {
 }
 
 const WorkModal: FC<IWorkModal> = ({id, setVisiableModal, selectedWork}) => {
-  // Указываем, что значения могут быть строкой или undefined
+
   const [workValue, setWorkValue] = useState<string>(selectedWork?.work ?? '')
   const [amountValue, setAmountValue] = useState<number>(selectedWork?.amount ?? 0)
   const [countValue, setCountValue] = useState<number>(selectedWork?.count ?? 0)
 
-  // Обновляем состояния при изменении selectedWork
   useEffect(() => {
     setWorkValue(selectedWork?.work ?? '')
     setAmountValue(selectedWork?.amount ?? 0)

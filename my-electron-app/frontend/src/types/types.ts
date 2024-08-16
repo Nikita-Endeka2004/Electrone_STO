@@ -10,3 +10,16 @@ export interface IWork {
   amount: number,
   count: number
 }
+
+export interface Work {
+  amount: string;
+}
+
+export interface UserData {
+  date: string;
+  works: Work[];
+}
+
+export interface IStatistic {
+  data: UserData[];
+}

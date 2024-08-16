@@ -7,7 +7,7 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(UserData) private readonly userRepository: Repository<UserData>,
+    @InjectRepository(UserData) private readonly userRepository: Repository<UserData>
   ) {}
 
   async create(createUserDto: CreateUserDto) {
@@ -18,6 +18,22 @@ export class UserService {
       date: new Date()
     })
     return user
+  }
+
+  async findAllRecentUsers(): Promise<any[]> {
+    const threeMonthsAgo = new Date();
+    threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+
+    return this.userRepository
+      .createQueryBuilder('user')
+      .leftJoin('user.works', 'work')
+      .select([
+        'user.date', 
+        'work.amount', 
+      ])
+      .where('user.date > :threeMonthsAgo', { threeMonthsAgo })
+      .orderBy('user.date', 'ASC')
+      .getMany();
   }
 
   async findLatest() {

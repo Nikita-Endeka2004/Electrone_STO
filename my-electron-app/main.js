@@ -12,9 +12,9 @@ function createWindow() {
     },
   });
 
-  const startURL = path.join(__dirname, 'frontend', 'dist', 'index.html');
-  console.log('Loading URL:', startURL);
-  mainWindow.loadFile(startURL);
+  // const startURL = path.join(__dirname, 'frontend', 'dist', 'index.html');
+  // console.log('Loading URL:', startURL);
+  mainWindow.loadFile('frontend/dist/index.html');
 
   mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
     console.error(`Failed to load: ${errorDescription} (code: ${errorCode})`);

@@ -61,10 +61,7 @@ const Works: FC = () => {
   const handleCreatePdf = async () => {
     setLoading(true); 
     try {
-      const user = await instance.get('/user_data/latest');
-      const latestUser = user.data[0];
       await instance.post('/pdfreport');
-      await instance.post('/pdfreport/open', { fileName: `${latestUser.vin}_${latestUser.car_number}_${latestUser.fio}.pdf` });
       toast.success('PDF успешно создан');
       navigate('/');
     } catch (error) {
@@ -135,9 +132,9 @@ const Works: FC = () => {
             </button>
           </Form>
           <button
-            className="bg-gray-700 text-white p-1 rounded mt-60 w-full"
+            className="bg-gray-700 text-white p-1 rounded mt-60 w-full disabled:bg-gray-400 hover:bg-gray-600"
             onClick={handleCreatePdf}
-            disabled={loading} // Отключаем кнопку при загрузке
+            disabled={loading || works.length === 0} 
           >
             {loading ? 'Создание PDF...' : 'Создать пдф'}
           </button>

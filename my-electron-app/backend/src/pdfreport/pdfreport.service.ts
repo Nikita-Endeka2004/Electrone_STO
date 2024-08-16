@@ -20,6 +20,19 @@ export class PdfreportService {
  ){}
  private readonly pdfDirectory = path.resolve('D:/Table/MyProjects/Electrone_STO/Electrone_STO/my-electron-app/data/pdfs')
 
+ private getUniqueFilePath(basePath: string, extension: string): string {
+    let filePath = `${basePath}.${extension}`;
+    let counter = 1;
+
+    // Пока файл существует, добавляем числовую приписку
+    while (fs.existsSync(filePath)) {
+      filePath = `${basePath}_${counter}.${extension}`;
+      counter++;
+    }
+
+    return filePath;
+  }
+
   async create(): Promise<void> {
     // Получаем данные из сервисов
     const workData = await this.workService.findAll();
@@ -62,9 +75,12 @@ export class PdfreportService {
       fs.mkdirSync(this.pdfDirectory);
     }
 
-    const pdfPath = path.resolve(this.pdfDirectory, `${user.vin}_${user.car_number}_${user.fio}.pdf`);
-    await page.pdf({ path: pdfPath, format: 'A4', printBackground: true });
+    const basePdfPath = path.resolve(this.pdfDirectory, `${user.vin}_${user.car_number}_${user.fio}`);
+    const pdfPath = this.getUniqueFilePath(basePdfPath, 'pdf');
 
+    await page.pdf({ path: pdfPath, format: 'A4', printBackground: true });
+    const command = `start "" "${pdfPath}"`;
+    await execPromise(command);
     await browser.close();
   }
 

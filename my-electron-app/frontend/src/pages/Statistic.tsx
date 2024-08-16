@@ -20,7 +20,7 @@ const Statistic: FC = () => {
           <BarChartThreeMonth data={data} />
         </div>
         <div className="bg-white shadow-md rounded-lg p-4">
-          <h2 className="text-xl font-semibold mb-4">Заработок за последний месяц за каждые два дня данного месяца:</h2>
+          <h2 className="text-xl font-semibold mb-4">Заработок за текущий месяц за каждые два дня:</h2>
           <BarChartOneMonth data={data} />
         </div>
     </div>

@@ -12,7 +12,9 @@ Realize database backup to the cloud and its download and replacement from there
 Technologies such as Nest for Backend part and React for Frontend part are used. The main programming language is TypeScript. 
 
 ## To start the program
-Before everything, you need to create a database and design the .env file this way: 
+Before everything, you need to:
+ - Create folder on the folder "data" with name "pdfs"
+ - Сreate a database and design the .env file this way: 
 ```env
 DB_HOST=''
 DB_PORT=

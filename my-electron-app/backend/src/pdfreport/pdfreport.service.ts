@@ -18,7 +18,7 @@ export class PdfreportService {
   private readonly workService: WorkService,
   private readonly userService: UserService,
  ){}
- private readonly pdfDirectory = path.resolve('D:/Table/MyProjects/Electrone_STO/Electrone_STO/my-electron-app/data/pdfs')
+ private readonly pdfDirectory = path.resolve(__dirname, '../../../data/pdfs')
 
  private getUniqueFilePath(basePath: string, extension: string): string {
     let filePath = `${basePath}.${extension}`;
@@ -58,7 +58,7 @@ export class PdfreportService {
     };
 
     // Читаем HTML-шаблон
-    const templatePath = path.resolve('D:/Table/MyProjects/Electrone_STO/Electrone_STO/my-electron-app/data/template.html');
+    const templatePath = path.resolve(__dirname, '../../../data/template.html');
     const htmlTemplate = fs.readFileSync(templatePath, 'utf8');
 
     // Компилируем шаблон с данными

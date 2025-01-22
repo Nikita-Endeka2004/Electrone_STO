@@ -134,7 +134,7 @@ const Works: FC = () => {
           <button
             className="bg-gray-700 text-white p-1 rounded mt-60 w-full disabled:bg-gray-400 hover:bg-gray-600"
             onClick={handleCreatePdf}
-            disabled={loading || works.length === 0} 
+            disabled={loading || works.length === 0}
           >
             {loading ? 'Создание PDF...' : 'Создать пдф'}
           </button>
@@ -143,8 +143,9 @@ const Works: FC = () => {
         {/* Правая часть: таблица */}
         <div className="w-2/3 p-4 bg-white rounded shadow-md">
           <h2 className="text-2xl font-bold mb-6">Список работ</h2>
-          <table className="w-full table-auto">
-            <thead>
+          <div className="overflow-y-auto max-h-[calc(100vh-200px)]"> {/* Ограничиваем высоту и добавляем прокрутку */}
+            <table className="w-full table-auto">
+              <thead>
               <tr>
                 <th className="w-1/10 py-2">№</th>
                 <th className="w-2/3 px-4 py-2">Проделанная работа</th>
@@ -152,8 +153,8 @@ const Works: FC = () => {
                 <th className="w-1/8 px-4 py-2">Количество</th>
                 <th className="w-1/12 px-4 py-2">Действия</th>
               </tr>
-            </thead>
-            <tbody>
+              </thead>
+              <tbody>
               {works.map((item, idx) => (
                 <tr key={idx}>
                   <td className="border px-2 py-2">{idx + 1}</td>
@@ -170,10 +171,12 @@ const Works: FC = () => {
                   </td>
                 </tr>
               ))}
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
+
       {/* Edit Work Modal */}
       {visibleModal && (
         <WorkModal setVisiableModal={setVisibleModal} id={workId} selectedWork={selectedWork} />

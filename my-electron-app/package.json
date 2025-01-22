@@ -2,22 +2,14 @@
   "name": "my-electron-app",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "build:backend": "cd backend && npm install && npm run build",
-    "build:frontend": "cd frontend && npm install && npm run build",
-    "build:electron": "electron-packager . STO --platform=win32 --arch=x64 --out=dist --overwrite",
-    "build": "npm run build:backend && npm run build:frontend && npm run build:electron"
+    "start:backend": "cd backend && npm install && npm run start:dev",
+    "start:frontend": "cd frontend && npm install && npm run dev",
+    "start": "npm run start:backend & npm run start:frontend"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "electron": "^30.1.0",
-    "electron-packager": "^17.1.2"
-  },
-  "dependencies": {
-    "electron-is-dev": "^3.0.1"
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }

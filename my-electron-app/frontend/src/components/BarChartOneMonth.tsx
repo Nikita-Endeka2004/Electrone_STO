@@ -1,5 +1,5 @@
 import { FC, useMemo } from 'react'
-import { IStatistic, Work } from '../types/types';
+import { IStatistic } from '../types/types';
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 const formatDate = (date: Date) => date.toLocaleDateString('en-GB');
@@ -23,21 +23,31 @@ const BarChartOneMonth:FC<IStatistic> = ({data}) => {
       const itemDate = new Date(item.date);
       return itemDate >= monthStart;
     });
-
-    // Группируем данные по каждые два дня
     let periodStart = new Date(monthStart);
     periodStart.setHours(0, 0, 0, 0);
+
     while (periodStart < new Date()) {
       const periodEnd = new Date(periodStart);
       periodEnd.setDate(periodStart.getDate() + 1);
-
+      periodEnd.setHours(23, 59, 59, 999); // Устанавливаем время на конец дня
       const periodRange = getTwoDayRange(periodStart);
       const Заработок = filteredData
         .filter(item => {
           const itemDate = new Date(item.date);
+          itemDate.setHours(0, 0, 0, 0); // Сбрасываем время у itemDate
           return itemDate >= periodStart && itemDate <= periodEnd;
         })
-        .reduce((sum, item) => sum + item.works.reduce((subSum, work: Work) => subSum + parseFloat(work.amount), 0), 0);
+        .reduce((sum, item) => {
+          const subSum = item.works.reduce((subSum, work) => {
+            const amount = parseFloat(work.amount);
+            if (isNaN(amount)) {
+              console.warn(`Некорректное значение amount: ${work.amount}`);
+              return subSum; // Пропускаем некорректное значение
+            }
+            return subSum + amount;
+          }, 0);
+          return sum + subSum;
+        }, 0);
 
       groupedData.push({ period: periodRange, Заработок });
 

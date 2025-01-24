@@ -6,6 +6,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { WorkModule } from './work/work.module';
 import { UserModule } from './user/user.module';
 import { PdfreportModule } from './pdfreport/pdfreport.module';
+import { EndProcesModule } from './end-proces/end-proces.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { PdfreportModule } from './pdfreport/pdfreport.module';
       }),
       inject: [ConfigService],
     }),
+    EndProcesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

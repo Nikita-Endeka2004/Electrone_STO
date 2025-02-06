@@ -7,6 +7,7 @@ import { WorkModule } from './work/work.module';
 import { UserModule } from './user/user.module';
 import { PdfreportModule } from './pdfreport/pdfreport.module';
 import { EndProcesModule } from './end-proces/end-proces.module';
+import { BackupModule } from './backup/backup.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { EndProcesModule } from './end-proces/end-proces.module';
       inject: [ConfigService],
     }),
     EndProcesModule,
+    BackupModule,
   ],
   controllers: [AppController],
   providers: [AppService],

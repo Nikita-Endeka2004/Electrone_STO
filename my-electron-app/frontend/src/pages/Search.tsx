@@ -12,7 +12,7 @@ const Search: FC = () => {
     setError(null);
 
     if (!query.trim()) {
-      toast.error("Поле ввода не может быть пустым");
+      toast.error("Поле введення не може бути порожнім");
       return;
     }
 
@@ -22,13 +22,13 @@ const Search: FC = () => {
       });
 
       if (response.data.length === 0) {
-        toast.error("Ничего не было найдено");
+        toast.error("Нічого не було знайдено");
       } else {
         setResults(response.data);
-        toast.success("Были найдены некоторые результаты");
+        toast.success("Було знайдено деякі результати");
       }
     } catch (err) {
-      toast.error('Ошибка при выполнении запроса');
+      toast.error('Помилка під час виконання запиту');
     }
   };
 
@@ -36,10 +36,10 @@ const Search: FC = () => {
     try {
       const req = await instance.post('/pdfreport/open', { fileName: filePath });
       if (req) {
-        toast.success('Файл открыт');
+        toast.success('Файл відкрито');
       }
     } catch (err) {
-      toast.error('Файл не был открыт');
+      toast.error('Файл не було відкрито');
     }
   };
 
@@ -51,14 +51,14 @@ const Search: FC = () => {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Введите запрос..."
+            placeholder="Введіть запит..."
             className="flex-grow p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button
             type="submit"
             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
           >
-            Поиск
+            Пошук
           </button>
         </form>
 
@@ -68,8 +68,8 @@ const Search: FC = () => {
           <table className="mt-8 w-full min-w-md table-auto border-collapse border border-gray-300">
             <thead>
               <tr className="bg-gray-200">
-                <th className="border border-gray-300 px-4 py-2 text-left">Название файла</th>
-                <th className="border border-gray-300 px-4 py-2">Действие</th>
+                <th className="border border-gray-300 px-4 py-2 text-left">Назва файлу</th>
+                <th className="border border-gray-300 px-4 py-2">Дія</th>
               </tr>
             </thead>
             <tbody>
@@ -81,7 +81,7 @@ const Search: FC = () => {
                       onClick={() => handleOpenFile(result)}
                       className="text-blue-500 hover:underline"
                     >
-                      Открыть
+                      Відкрити
                     </button>
                   </td>
                 </tr>
@@ -89,7 +89,7 @@ const Search: FC = () => {
             </tbody>
           </table>
         ) : (
-          <div className="mt-8 text-gray-500">Тут пока ничего нет</div>
+          <div className="mt-8 text-gray-500">Тут поки що нічого немає</div>
         )}
       </div>
     </>

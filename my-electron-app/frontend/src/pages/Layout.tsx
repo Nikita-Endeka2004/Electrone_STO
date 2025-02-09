@@ -10,7 +10,7 @@ const Layout: FC = () => {
           <ul className="flex space-x-4">
             <li>
               <Link to="/" className="text-white">
-                Главная
+                Головна
               </Link>
             </li>
             <li>
@@ -24,7 +24,7 @@ const Layout: FC = () => {
               onClick={stopProject}
               className="bg-red-500 text-white px-4 py-2 rounded shadow-lg transition-transform transform hover:scale-105 hover:bg-red-600"
             >
-              Остановить проект
+              Вихід
             </button>
           </div>
         </nav>

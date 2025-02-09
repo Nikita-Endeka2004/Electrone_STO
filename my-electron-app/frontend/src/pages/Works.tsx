@@ -62,10 +62,10 @@ const Works: FC = () => {
     setLoading(true); 
     try {
       await instance.post('/pdfreport');
-      toast.success('PDF успешно создан');
+      toast.success('PDF успішно створено');
       navigate('/');
     } catch (error) {
-      toast.error('Ошибка при создании PDF');
+      toast.error('Помилка під час створення PDF');
     } finally {
       setLoading(false); 
     }
@@ -76,12 +76,12 @@ const Works: FC = () => {
       <div className="flex h-screen p-8">
         {/* Левая часть: форма для заполнения */}
         <div className="w-1/3 p-4 bg-white rounded shadow-md mr-4">
-          <h2 className="text-2xl font-bold mb-6">Добавить проделанную работу</h2>
+          <h2 className="text-2xl font-bold mb-6">Додати виконану роботу</h2>
           <Form method="post" action="/works" onSubmit={handleSubmit}>
             <input type="hidden" name="editingId" value="" />
             <div className="mb-4">
               <label htmlFor="work" className="block text-sm font-medium text-gray-700">
-                Проделанная работа
+                Виконана робота
               </label>
               <input
                 type="text"
@@ -96,7 +96,7 @@ const Works: FC = () => {
 
             <div className="mb-4">
               <label htmlFor="amount" className="block text-sm font-medium text-gray-700">
-                Стоимость
+                Вартість
               </label>
               <input
                 type="number"
@@ -111,7 +111,7 @@ const Works: FC = () => {
 
             <div className="mb-4">
               <label htmlFor="count" className="block text-sm font-medium text-gray-700">
-                Количество
+                Кількість
               </label>
               <input
                 type="number"
@@ -128,7 +128,7 @@ const Works: FC = () => {
               type="submit"
               className="w-full bg-blue-500 text-white p-2 rounded mt-4 hover:bg-blue-600"
             >
-              Добавить
+              Додати
             </button>
           </Form>
           <button
@@ -136,22 +136,22 @@ const Works: FC = () => {
             onClick={handleCreatePdf}
             disabled={loading || works.length === 0}
           >
-            {loading ? 'Создание PDF...' : 'Создать пдф'}
+            {loading ? 'Створення PDF...' : 'Створити пдф'}
           </button>
         </div>
 
         {/* Правая часть: таблица */}
         <div className="w-2/3 p-4 bg-white rounded shadow-md">
-          <h2 className="text-2xl font-bold mb-6">Список работ</h2>
+          <h2 className="text-2xl font-bold mb-6">Список робіт</h2>
           <div className="overflow-y-auto max-h-[calc(100vh-200px)]"> {/* Ограничиваем высоту и добавляем прокрутку */}
             <table className="w-full table-auto">
               <thead>
               <tr>
                 <th className="w-1/10 py-2">№</th>
-                <th className="w-2/3 px-4 py-2">Проделанная работа</th>
-                <th className="w-1/4 px-4 py-2">Стоимость</th>
-                <th className="w-1/8 px-4 py-2">Количество</th>
-                <th className="w-1/12 px-4 py-2">Действия</th>
+                <th className="w-2/3 px-4 py-2">Виконана робота</th>
+                <th className="w-1/4 px-4 py-2">Вартість</th>
+                <th className="w-1/8 px-4 py-2">Кількість</th>
+                <th className="w-1/12 px-4 py-2">Дії</th>
               </tr>
               </thead>
               <tbody>
@@ -166,7 +166,7 @@ const Works: FC = () => {
                       className="bg-yellow-500 text-white p-1 rounded"
                       onClick={() => { setWorkId(item.id), setVisibleModal(true), setSelectedWork(item) }}
                     >
-                      Изменить
+                      Змінити
                     </button>
                   </td>
                 </tr>

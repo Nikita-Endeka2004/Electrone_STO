@@ -38,38 +38,38 @@ const WorkModal: FC<IWorkModal> = ({id, setVisiableModal, selectedWork}) => {
         className="w-1/4 p-6 bg-white rounded-md shadow-lg"
       >
        <label htmlFor="work" className="block mb-4">
-       <small className="block text-sm text-gray-600">Проделанная работа</small>
+       <small className="block text-sm text-gray-600">Виконана робота</small>
           <input
             className="w-full p-2 border border-gray-300 rounded-md"
             type="text"
             name="work"
             value={workValue}
             onChange={(e) => setWorkValue(e.target.value)}
-            placeholder="Работа..."
+            placeholder="Робота..."
             required
           />
         </label>
         <label htmlFor="amount" className="block mb-4">
-          <small className="block text-sm text-gray-600">Стоимость</small>
+          <small className="block text-sm text-gray-600">Вартість</small>
           <input
             className="w-full p-2 border border-gray-300 rounded-md"
             type="text"
             name="amount"
             value={amountValue}
             onChange={handleAmountChange}
-            placeholder="Стоимость..."
+            placeholder="Вартість..."
             required
           />
         </label>
         <label htmlFor="count" className="block mb-4">
-          <small className="block text-sm text-gray-600">Количество</small>
+          <small className="block text-sm text-gray-600">Кількість</small>
           <input
             className="w-full p-2 border border-gray-300 rounded-md"
             type="text"
             name="count"
             value={countValue}
             onChange={handleCountChange}
-            placeholder="Количество..."
+            placeholder="Кількість..."
             required
           />
           <input type="hidden" name="id" value={id} />
@@ -79,7 +79,7 @@ const WorkModal: FC<IWorkModal> = ({id, setVisiableModal, selectedWork}) => {
             className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
             type="submit"
           >
-            Сохранить
+            Зберегти
           </button>
           <button
             className="bg-red-500 text-white p-2 rounded-md hover:bg-red-600"

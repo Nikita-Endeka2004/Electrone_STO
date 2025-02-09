@@ -41,7 +41,7 @@ const BarChartOneMonth:FC<IStatistic> = ({data}) => {
           const subSum = item.works.reduce((subSum, work) => {
             const amount = parseFloat(work.amount);
             if (isNaN(amount)) {
-              console.warn(`Некорректное значение amount: ${work.amount}`);
+              console.warn(`Некоректне значення amount: ${work.amount}`);
               return subSum; // Пропускаем некорректное значение
             }
             return subSum + amount;

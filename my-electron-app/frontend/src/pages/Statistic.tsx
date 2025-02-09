@@ -16,11 +16,11 @@ const Statistic: FC = () => {
     <>
       <div className="p-6 space-y-8">
         <div className="bg-white shadow-md rounded-lg p-4">
-          <h2 className="text-xl font-semibold mb-4">Зароботок за последние три месяца понедельно:</h2>
+          <h2 className="text-xl font-semibold mb-4">Заробіток за останні три місяці потижнево:</h2>
           <BarChartThreeMonth data={data} />
         </div>
         <div className="bg-white shadow-md rounded-lg p-4">
-          <h2 className="text-xl font-semibold mb-4">Заработок за текущий месяц за каждые два дня:</h2>
+          <h2 className="text-xl font-semibold mb-4">Заробіток за поточний місяць за кожні два дні:</h2>
           <BarChartOneMonth data={data} />
         </div>
     </div>
